@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Technology Portfolio — Diego Eduardo</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Anybody:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --noir: #0a0a0a;
+            --ash: #1a1a1a;
+            --silver: #e8e8e8;
+            --pearl: #f5f5f5;
+            --accent: #a2a680;
+            --accent-dim: #8a8e6a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Crimson Pro', serif;
+            background: var(--noir);
+            color: var(--silver);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+            margin: 0;
+        }
+
+        /* Floating shapes background */
+        .floating-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .neural-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+        }
+
+        .float-shape {
+            position: absolute;
+            border: 2px solid rgba(162, 166, 128, 0.362);
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .float-shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .float-shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            right: 15%;
+            animation-delay: 3s;
+            transform: rotate(45deg);
+        }
+
+        .float-shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            bottom: 20%;
+            left: 20%;
+            animation-delay: 6s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-30px) rotate(5deg); }
+            50% { transform: translateY(-60px) rotate(-5deg); }
+            75% { transform: translateY(-30px) rotate(3deg); }
+        }
+
+        .container {
+            text-align: center;
+            width: 100%;
+            max-width: 800px;
+            padding: 3rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo {
+            height: 60px;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-family: 'Anybody', sans-serif;
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            letter-spacing: -0.03em;
+            color: var(--pearl);
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.4s forwards;
+        }
+
+        .accent-word {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        p {
+            font-size: 1.4rem;
+            color: var(--silver);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: rgba(162, 166, 128, 0.1);
+            border: 1px solid rgba(162, 166, 128, 0.3);
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 0.8s forwards;
+        }
+
+        .back-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: var(--accent);
+            color: var(--noir);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease-out 1s forwards;
+            font-family: 'Anybody', sans-serif;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(162, 166, 128, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem;
+            }
+
+            .logo {
+                height: 50px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            p {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+        <div class="float-shape"></div>
+    </div>
+
+    <div class="container">
+        <a href="index.html"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo" class="logo"></a>
+        
+        <h1>
+            <span class="accent-word">Technology</span> Portfolio
+        </h1>
+        
+        <p>
+            View my software solutions, web development projects, and IT infrastructure work. This portfolio showcase is currently being crafted.
+        </p>
+        
+        <div class="status-badge">💡 Coming Soon</div>
+        
+        <a href="index.html" class="back-button">Back to Home</a>
+    </div>
+
+    <script src="portfolio-neural.js"></script>
+</body>
+</html>

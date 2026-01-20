@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diego Eduardo — Creative Technologist</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Anybody:wght@300;500;700;900&display=swap" rel="stylesheet">
@@ -12,9 +13,12 @@
 <body>
     <!-- Navigation -->
     <nav>
-        <a href="www.diegoheduardo.com" class="logo">
+        <a href="https://www.diegoheduardo.com" class="logo">
             <img src="img/Diego Eduardo White.png" alt="Diego Eduardo">
         </a>
+        <div class="nav-profile">
+            <img src="img/diego-profile.jpg" alt="Diego Eduardo">
+        </div>
         <ul class="nav-links">
             <li><a href="#expertise">Expertise</a></li>
             <li><a href="#about">About</a></li>
@@ -39,9 +43,9 @@
                 Bridging the worlds of cinematic storytelling, sonic excellence, and innovative software engineering. Creating experiences that resonate, systems that scale, and moments that endure.
             </p>
             <div class="hero-roles">
-                <div class="role-badge">🎬 Videographer & Musician</div>
-                <div class="role-badge">💼 IT Director</div>
-                <div class="role-badge">⚡ Software Developer</div>
+                <div class="role-badge">Videographer & Musician</div>
+                <div class="role-badge">IT Director</div>
+                <div class="role-badge">Software Developer</div>
             </div>
             <a href="#contact" class="cta-button">Let's Create Together</a>
         </div>
@@ -77,6 +81,7 @@
                     <li>PA System Tuning</li>
                     <li>Live & Studio Recording</li>
                     <li>Multi-Instrumental Performance</li>
+                    <li>AVL System Integration</li>
                 </ul>
             </div>
 
@@ -87,9 +92,9 @@
                 <ul class="expertise-list">
                     <li>IT Strategy & Architecture</li>
                     <li>Full-Stack Development</li>
+                    <li>Web Development</li>
                     <li>Team Leadership & Mentorship</li>
                     <li>Cloud Infrastructure</li>
-                    <li>AVL System Integration</li>
                 </ul>
             </div>
         </div>
@@ -137,27 +142,27 @@
             <h2 class="section-title">Creative Portfolio</h2>
         </div>
         <div class="work-categories">
-            <div class="work-category" style="background: linear-gradient(135deg, rgba(162,166,128,0.3), rgba(26,26,26,0.9));">
+            <a href="videography.html" class="work-category" style="background: linear-gradient(135deg, rgba(162,166,128,0.3), rgba(26,26,26,0.9));">
                 <div class="category-content">
                     <span class="category-icon">🎬</span>
                     <h3>Videography</h3>
                     <p>Cinematic weddings, music videos, and corporate films</p>
                 </div>
-            </div>
-            <div class="work-category" style="background: linear-gradient(135deg, rgba(77,150,255,0.3), rgba(26,26,26,0.9));">
+            </a>
+            <a href="audio.html" class="work-category" style="background: linear-gradient(135deg, rgba(77,150,255,0.3), rgba(26,26,26,0.9));">
                 <div class="category-content">
                     <span class="category-icon">🎧</span>
                     <h3>Audio Production</h3>
                     <p>Live mixing, studio productions, and sound design</p>
                 </div>
-            </div>
-            <div class="work-category" style="background: linear-gradient(135deg, rgba(150,77,255,0.3), rgba(26,26,26,0.9));">
+            </a>
+            <a href="technology.html" class="work-category" style="background: linear-gradient(135deg, rgba(150,77,255,0.3), rgba(26,26,26,0.9));">
                 <div class="category-content">
                     <span class="category-icon">💡</span>
                     <h3>Technology</h3>
                     <p>Software solutions and IT infrastructure projects</p>
                 </div>
-            </div>
+            </a>
         </div>
     </section>
 
@@ -168,21 +173,57 @@
             <p>
                 Whether you need a cinematic story told, a sonic landscape crafted, or a technical challenge solved, let's collaborate to create something remarkable.
             </p>
+            
+            <form class="contact-form" id="contact-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" placeholder="What's this about?" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="service">Service Interested In</label>
+                    <select id="service" name="service" required>
+                        <option value="">Select a service...</option>
+                        <option value="Videography">Videography</option>
+                        <option value="Audio">Audio Production</option>
+                        <option value="IT">IT Consulting</option>
+                        <option value="Web Development">Web Development</option>
+                        <option value="SEO">SEO</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..." required></textarea>
+                </div>
+                
+                <button type="submit" class="cta-button">Send Message</button>
+            </form>
+            
+            <div id="form-status"></div>
+            
             <div class="contact-methods">
-                <a href="/cdn-cgi/l/email-protection#74101d11131b34110c15190418115a171b19" class="contact-method">
+                <a href="mailto:diego@diegoheduardo.com" class="contact-method">
                     <span>📧</span>
-                    <span>Email Me</span>
+                    <span>E-Mail Me</span>
                 </a>
-                <a href="tel:+1234567890" class="contact-method">
-                    <span>📱</span>
-                    <span>Call Me</span>
-                </a>
-                <a href="https://linkedin.com" class="contact-method" target="_blank">
-                    <span>💼</span>
-                    <span>LinkedIn</span>
+                <a href="downloads/Diego-Eduardo-Resume.pdf" download class="contact-method">
+                    <span>📄</span>
+                    <span>Download Resume</span>
                 </a>
             </div>
-            <a href="#expertise" class="cta-button">Explore My Work</a>
         </div>
     </section>
 
@@ -190,7 +231,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-logo">
-                <a href="www.diegoheduardo.com"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo"></a>
+                <a href="https://www.diegoheduardo.com"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo"></a>
             </div>
             <div class="footer-text">© 2026 Diego Eduardo. Creative Technologist.</div>
         </div>

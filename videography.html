@@ -8,231 +8,686 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Anybody:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --noir: #0a0a0a;
-            --ash: #1a1a1a;
-            --silver: #e8e8e8;
-            --pearl: #f5f5f5;
-            --accent: #a2a680;
-            --accent-dim: #8a8e6a;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Crimson Pro', serif;
-            background: var(--noir);
-            color: var(--silver);
-            overflow: hidden;
+        /* Videography-specific styles */
+        .videography-hero {
+            min-height: 70vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
             position: relative;
-            margin: 0;
+            padding: 0 4rem;
+            background: linear-gradient(to bottom, var(--noir), var(--ash));
         }
 
-        /* Floating shapes background */
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .neural-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.6;
-        }
-
-        .float-shape {
-            position: absolute;
-            border: 2px solid rgba(162, 166, 128, 0.362);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .float-shape:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .float-shape:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 3s;
-            transform: rotate(45deg);
-        }
-
-        .float-shape:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 6s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-30px) rotate(5deg); }
-            50% { transform: translateY(-60px) rotate(-5deg); }
-            75% { transform: translateY(-30px) rotate(3deg); }
-        }
-
-        .container {
+        .videography-hero-content {
+            max-width: 1200px;
             text-align: center;
-            width: 100%;
-            max-width: 800px;
-            padding: 3rem;
             position: relative;
             z-index: 2;
         }
 
-        .logo {
-            height: 60px;
-            margin-bottom: 3rem;
+        .portfolio-section {
+            padding: 0px 4rem 8rem;
+            background: var(--ash);
+        }
+
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 4rem;
             opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.2s forwards;
+            animation: fadeInUp 0.8s ease-out 0.5s forwards;
         }
 
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
-            font-family: 'Anybody', sans-serif;
-            font-size: clamp(3rem, 8vw, 5rem);
-            font-weight: 900;
-            letter-spacing: -0.03em;
-            color: var(--pearl);
-            margin-bottom: 1.5rem;
-            line-height: 1.1;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.4s forwards;
-        }
-
-        .accent-word {
-            color: var(--accent);
-            font-style: italic;
-        }
-
-        p {
-            font-size: 1.4rem;
-            color: var(--silver);
-            margin-bottom: 3rem;
-            line-height: 1.8;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.6s forwards;
-        }
-
-        .status-badge {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
+        .filter-btn {
+            padding: 0.75rem 1.75rem;
             background: rgba(162, 166, 128, 0.1);
             border: 1px solid rgba(162, 166, 128, 0.3);
             border-radius: 50px;
+            font-family: 'Anybody', sans-serif;
             font-size: 0.9rem;
             font-weight: 600;
             letter-spacing: 0.05em;
-            color: var(--accent);
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.8s forwards;
+            color: var(--silver);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
         }
 
-        .back-button {
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: rgba(162, 166, 128, 0.2);
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-card {
+            background: linear-gradient(135deg, rgba(162, 166, 128, 0.05), rgba(26, 26, 26, 0.8));
+            border: 1px solid rgba(162, 166, 128, 0.2);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            position: relative;
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 60px rgba(162, 166, 128, 0.3);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 aspect ratio */
+            background: linear-gradient(135deg, rgba(162, 166, 128, 0.1), rgba(26, 26, 26, 0.9));
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, 0.7));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-card:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: var(--noir);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover .play-icon {
+            transform: scale(1);
+        }
+
+        .video-info {
+            padding: 2rem;
+        }
+
+        .video-category {
             display: inline-block;
-            padding: 1.2rem 3rem;
+            font-family: 'Anybody', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(162, 166, 128, 0.1);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1rem;
+        }
+
+        .video-title {
+            font-family: 'Anybody', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--pearl);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .video-description {
+            font-size: 1rem;
+            color: var(--silver);
+            line-height: 1.6;
+        }
+
+        .video-platform {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-family: 'Anybody', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--silver);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 10;
+        }
+
+        .youtube-badge {
+            border: 1px solid #ff0000;
+        }
+
+        .vimeo-badge {
+            border: 1px solid #00adef;
+        }
+
+        /* Placeholder thumbnail for Vimeo */
+        .placeholder-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(162, 166, 128, 0.15), rgba(26, 26, 26, 0.95));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .placeholder-icon {
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .video-modal-wrapper {
+            position: relative;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .video-modal-content {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: var(--noir);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--accent);
+            box-shadow: 0 20px 60px rgba(162, 166, 128, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .video-modal.active .video-modal-content {
+            transform: scale(1);
+        }
+
+        .video-modal-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
             background: var(--accent);
             color: var(--noir);
-            text-decoration: none;
-            font-size: 1rem;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 2rem;
             font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            border-radius: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 1s forwards;
             font-family: 'Anybody', sans-serif;
+            z-index: 10001;
         }
 
-        .back-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(162, 166, 128, 0.4);
+        .video-modal-close:hover {
+            transform: scale(1.15) rotate(90deg);
+            box-shadow: 0 8px 25px rgba(162, 166, 128, 0.6);
+        }
+
+        #video-player {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .video-modal iframe {
+            width: 100.5%;
+            height: 100.5%;
+            border: none;
+            position: absolute;
+            top: -0.25%;
+            left: -0.25%;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
-            .container {
-                padding: 2rem;
+            .videography-hero {
+                padding: 0 2rem;
+                min-height: 60vh;
             }
 
-            .logo {
-                height: 50px;
+            .portfolio-section {
+                padding: 4rem 2rem;
             }
 
-            h1 {
-                font-size: 2.5rem;
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
-            p {
-                font-size: 1.2rem;
+            .filter-bar {
+                gap: 0.75rem;
+            }
+
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 0.6rem 1.25rem;
+            }
+
+            .video-modal-wrapper {
+                width: 95%;
+            }
+
+            .video-modal-close {
+                top: -10px;
+                right: -10px;
+                width: 45px;
+                height: 45px;
+                font-size: 1.8rem;
             }
         }
     </style>
-</head>
+</function>
 <body>
-    <div class="floating-elements">
-        <div class="float-shape"></div>
-        <div class="float-shape"></div>
-        <div class="float-shape"></div>
+    <!-- Neural Network Canvas -->
+    <canvas class="neural-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="https://www.diegoheduardo.com" class="logo">
+            <img src="img/Diego Eduardo White.png" alt="Diego Eduardo">
+        </a>
+        <div class="nav-profile">
+            <img src="img/diego-profile.jpg" alt="Diego Eduardo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html#expertise">Expertise</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#work">Work</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="videography-hero">
+        <div class="floating-elements">
+            <div class="float-shape"></div>
+            <div class="float-shape"></div>
+            <div class="float-shape"></div>
+        </div>
+        <div class="videography-hero-content">
+            <div class="hero-label">Visual Storytelling</div>
+            <h1>
+                <span class="accent-word">Videography</span> Portfolio
+            </h1>
+            <p class="hero-description">
+                Capturing moments that matter through cinematic wedding films, dynamic music videos, and compelling corporate content. Each frame tells a story.
+            </p>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section class="portfolio-section">
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="wedding">Weddings</button>
+            <button class="filter-btn" data-filter="music">Music Videos</button>
+            <button class="filter-btn" data-filter="corporate">Corporate & Real Estate</button>
+        </div>
+
+        <!-- Video Grid -->
+        <div class="video-grid">
+            <!-- Video Card 1 - Vimeo Example (Wedding) -->
+            <a href="https://vimeo.com/915745462" target="_blank" class="video-card scroll-reveal" data-category="wedding" data-vimeo-id="915745462">
+                <div class="video-thumbnail">
+                    <span class="video-platform vimeo-badge">Vimeo</span>
+                    <img class="vimeo-thumb" src="" alt="Wedding Film" style="display: none;">
+                    <div class="placeholder-thumbnail">
+                        <span class="placeholder-icon">💍</span>
+                    </div>
+                    <div class="video-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Wedding</span>
+                    <h3 class="video-title">Sarai & Drew's Wedding</h3>
+                    <p class="video-description">A beautiful celebration of love at The Log Cabin in Holyoke MA</p>
+                </div>
+            </a>
+
+            <!-- Video Card 2 - Vimeo Example (Wedding) -->
+            <a href="https://vimeo.com/858850811" target="_blank" class="video-card scroll-reveal" data-category="wedding" data-vimeo-id="858850811">
+                <div class="video-thumbnail">
+                    <span class="video-platform vimeo-badge">Vimeo</span>
+                    <img class="vimeo-thumb" src="" alt="Wedding Film" style="display: none;">
+                    <div class="placeholder-thumbnail">
+                        <span class="placeholder-icon">💍</span>
+                    </div>
+                    <div class="video-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Wedding</span>
+                    <h3 class="video-title">Jennifer & Matheus Wedding</h3>
+                    <p class="video-description">A beautiful celebration at Harrington Farm</p>
+                </div>
+            </a>
+
+            <!-- Video Card 3 - Vimeo Example (Wedding) -->
+            <a href="https://vimeo.com/733363282" target="_blank" class="video-card scroll-reveal" data-category="wedding" data-vimeo-id="733363282">
+                <div class="video-thumbnail">
+                    <span class="video-platform vimeo-badge">Vimeo</span>
+                    <img class="vimeo-thumb" src="" alt="Wedding Film" style="display: none;">
+                    <div class="placeholder-thumbnail">
+                        <span class="placeholder-icon">💍</span>
+                    </div>
+                    <div class="video-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Wedding</span>
+                    <h3 class="video-title">Louise and Josh Wedding</h3>
+                    <p class="video-description">Intimate moments in Newport MA</p>
+                </div>
+            </a>
+
+            <!-- Video Card 4 - YouTube Example (Music Video) -->
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="video-card scroll-reveal" data-category="music">
+                <div class="video-thumbnail">
+                    <span class="video-platform youtube-badge">YouTube</span>
+                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="Music Video">
+                    <div class="video-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Music Video</span>
+                    <h3 class="video-title">Electric Pulse</h3>
+                    <p class="video-description">High-energy electronic music visualization</p>
+                </div>
+            </a>
+
+            <!-- Video Card 5 - YouTube Example (Corporate) -->
+            <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="video-card scroll-reveal" data-category="corporate">
+                <div class="video-thumbnail">
+                    <span class="video-platform youtube-badge">YouTube</span>
+                    <img src="https://img.youtube.com/vi/dQw4w9WgXcQ/mqdefault.jpg" alt="Corporate Video">
+                    <div class="video-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Corporate</span>
+                    <h3 class="video-title">Tech Innovations 2024</h3>
+                    <p class="video-description">Brand story for a leading technology firm</p>
+                </div>
+            </a>
+
+            <!-- Video Card 6 - Vimeo Example (Real Estate) -->
+            <a href="https://vimeo.com/123456789" target="_blank" class="video-card scroll-reveal" data-category="corporate">
+                <div class="video-thumbnail">
+                    <span class="video-platform vimeo-badge">Vimeo</span>
+                    <div class="placeholder-thumbnail">
+                        <span class="placeholder-icon">🏠</span>
+                    </div>
+                    <div class="video-overlay">
+                        <div class="play-icon">▶</div>
+                    </div>
+                </div>
+                <div class="video-info">
+                    <span class="video-category">Real Estate</span>
+                    <h3 class="video-title">Luxury Property Showcase</h3>
+                    <p class="video-description">Stunning walkthrough of a modern estate</p>
+                </div>
+            </a>
+        </div>
+
+        <!-- See More Button (Wedding Only) -->
+        <div id="see-more-btn" style="text-align: center; margin-top: 4rem;">
+            <a href="https://vimeo.com/user/4209042/folder/17812859" target="_blank" class="cta-button" style="opacity: 1; animation: none;">
+                See More Videos
+            </a>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="video-modal">
+        <div class="video-modal-wrapper">
+            <button class="video-modal-close" id="close-modal">×</button>
+            <div class="video-modal-content">
+                <div id="video-player"></div>
+            </div>
+        </div>
     </div>
 
-    <div class="container">
-        <a href="index.html"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo" class="logo"></a>
-        
-        <h1>
-            <span class="accent-word">Videography</span> Portfolio
-        </h1>
-        
-        <p>
-            Explore my cinematic wedding films, music videos, and corporate content. This portfolio showcase is currently being crafted.
-        </p>
-        
-        <div class="status-badge">🎬 Coming Soon</div>
-        
-        <a href="index.html" class="back-button">Back to Home</a>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="https://www.diegoheduardo.com">
+                    <img src="img/Diego Eduardo White.png" alt="Diego Eduardo">
+                </a>
+            </div>
+            <div class="footer-text">
+                © 2024 Diego Eduardo. All rights reserved.
+            </div>
+        </div>
+    </footer>
 
+    <!-- Scripts -->
     <script src="portfolio-neural.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Load Vimeo thumbnails
+        async function loadVimeoThumbnails() {
+            const vimeoCards = document.querySelectorAll('[data-vimeo-id]');
+
+            vimeoCards.forEach(async (card) => {
+                const vimeoId = card.getAttribute('data-vimeo-id');
+                const imgElement = card.querySelector('.vimeo-thumb');
+                const placeholder = card.querySelector('.placeholder-thumbnail');
+
+                try {
+                    const response = await fetch(`https://vimeo.com/api/oembed.json?url=https://vimeo.com/${vimeoId}`);
+                    const data = await response.json();
+
+                    if (data.thumbnail_url) {
+                        imgElement.src = data.thumbnail_url;
+                        imgElement.style.display = 'block';
+                        if (placeholder) {
+                            placeholder.style.display = 'none';
+                        }
+                    }
+                } catch (error) {
+                    console.log('Could not load Vimeo thumbnail:', error);
+                }
+            });
+        }
+
+        // Filter functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const videoCards = document.querySelectorAll('.video-card');
+        const seeMoreBtn = document.getElementById('see-more-btn');
+
+        // Initial filter on page load (show wedding videos)
+        window.addEventListener('load', () => {
+            // Load Vimeo thumbnails
+            loadVimeoThumbnails();
+
+            videoCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                if (category !== 'wedding') {
+                    card.style.display = 'none';
+                } else {
+                    // Make sure wedding videos are visible
+                    card.style.display = 'block';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }
+            });
+
+            // Show button for wedding (initial state)
+            seeMoreBtn.style.display = 'block';
+        });
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                const filterValue = btn.getAttribute('data-filter');
+
+                // Show/hide See More button based on filter
+                if (filterValue === 'wedding') {
+                    seeMoreBtn.style.display = 'block';
+                } else {
+                    seeMoreBtn.style.display = 'none';
+                }
+
+                videoCards.forEach(card => {
+                    const category = card.getAttribute('data-category');
+                    if (category === filterValue) {
+                        card.style.display = 'block';
+                        setTimeout(() => {
+                            card.style.opacity = '1';
+                            card.style.transform = 'translateY(0)';
+                        }, 10);
+                    } else {
+                        card.style.opacity = '0';
+                        card.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            card.style.display = 'none';
+                        }, 300);
+                    }
+                });
+            });
+        });
+
+        // Video Modal functionality
+        const videoModal = document.getElementById('video-modal');
+        const videoPlayer = document.getElementById('video-player');
+        const closeModalBtn = document.getElementById('close-modal');
+
+        // Open modal when clicking video card
+        videoCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.preventDefault();
+
+                const videoUrl = card.getAttribute('href');
+                const vimeoId = card.getAttribute('data-vimeo-id');
+                let embedUrl = '';
+
+                // Determine if it's Vimeo or YouTube and create embed URL
+                if (vimeoId) {
+                    embedUrl = `https://player.vimeo.com/video/${vimeoId}?autoplay=1&title=0&byline=0&portrait=0`;
+                } else if (videoUrl.includes('youtube.com') || videoUrl.includes('youtu.be')) {
+                    const youtubeId = videoUrl.includes('watch?v=')
+                        ? videoUrl.split('watch?v=')[1].split('&')[0]
+                        : videoUrl.split('youtu.be/')[1];
+                    embedUrl = `https://www.youtube.com/embed/${youtubeId}?autoplay=1`;
+                }
+
+                // Create and insert iframe
+                videoPlayer.innerHTML = `<iframe src="${embedUrl}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+
+                // Show modal
+                videoModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal function
+        function closeModal() {
+            videoModal.classList.remove('active');
+            videoPlayer.innerHTML = ''; // Remove iframe to stop video
+            document.body.style.overflow = '';
+        }
+
+        // Close button click
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close when clicking outside video
+        videoModal.addEventListener('click', (e) => {
+            if (e.target === videoModal) {
+                closeModal();
+            }
+        });
+
+        // Close with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>

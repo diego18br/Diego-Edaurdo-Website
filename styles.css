@@ -1099,24 +1099,30 @@ footer {
 
 /* Accessibility - Skip Link */
 .skip-link {
-    position: absolute;
-    top: -100px;
+    position: fixed;
+    top: -60px;
     left: 50%;
     transform: translateX(-50%);
-    background: var(--accent);
-    color: var(--noir);
-    padding: 1rem 2rem;
-    border-radius: 0 0 10px 10px;
-    font-weight: 700;
+    background: var(--ash);
+    color: var(--accent);
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--accent);
+    border-radius: 0 0 8px 8px;
+    font-family: 'Anybody', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
     text-decoration: none;
     z-index: 99999;
     transition: top 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
 .skip-link:focus {
     top: 0;
-    outline: 3px solid var(--pearl);
-    outline-offset: 2px;
+    outline: none;
+    box-shadow: 0 4px 20px rgba(162, 166, 128, 0.3);
 }
 
 /* Accessibility - Focus Visible Styles */

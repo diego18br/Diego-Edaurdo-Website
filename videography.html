@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Anybody:wght@300;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Diego Eduardo's videography portfolio - cinematic wedding films, dynamic music videos, and compelling corporate content. Visual storytelling that captures moments that matter.">
     <style>
         /* Videography-specific styles */
         .videography-hero {
@@ -353,6 +354,8 @@
     </style>
 </head>
 <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Neural Network Canvas -->
     <canvas class="neural-canvas"></canvas>
 
@@ -364,7 +367,7 @@
         <div class="nav-profile">
             <img src="img/diego-profile.jpg" alt="Diego Eduardo">
         </div>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu" onclick="this.classList.toggle('active'); document.getElementById('nav-links').classList.toggle('active');">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links" onclick="this.classList.toggle('active'); document.getElementById('nav-links').classList.toggle('active'); this.setAttribute('aria-expanded', this.classList.contains('active'));">
             <span></span>
             <span></span>
             <span></span>
@@ -378,6 +381,7 @@
         </ul>
     </nav>
 
+    <main id="main-content">
     <!-- Hero Section -->
     <section class="videography-hero">
         <div class="floating-elements">
@@ -523,8 +527,10 @@
         </div>
     </section>
 
+    </main>
+
     <!-- Video Modal -->
-    <div id="video-modal" class="video-modal">
+    <div id="video-modal" class="video-modal" role="dialog" aria-modal="true" aria-label="Video player">
         <div class="video-modal-wrapper">
             <button class="video-modal-close" id="close-modal">×</button>
             <div class="video-modal-content">

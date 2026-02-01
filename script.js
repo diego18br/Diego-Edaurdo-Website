@@ -36,7 +36,9 @@ document.addEventListener('DOMContentLoaded', () => {
             e.stopPropagation();
             hamburger.classList.toggle('active');
             navLinks.classList.toggle('active');
-            toggleNeuralCanvas(navLinks.classList.contains('active'));
+            const isExpanded = navLinks.classList.contains('active');
+            hamburger.setAttribute('aria-expanded', isExpanded);
+            toggleNeuralCanvas(isExpanded);
         });
 
         // Close menu when a link is clicked
@@ -44,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 toggleNeuralCanvas(false);
             });
         });
@@ -53,6 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
                 hamburger.classList.remove('active');
                 navLinks.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
                 toggleNeuralCanvas(false);
             }
         });

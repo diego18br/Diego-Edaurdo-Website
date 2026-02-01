@@ -37,6 +37,16 @@
             line-height: 1.8;
         }
 
+        .portfolio-hero .section-label {
+            font-family: 'Anybody', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -144,19 +154,33 @@
             opacity: 0.8;
         }
 
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            margin-bottom: 2rem;
-            transition: gap 0.3s ease;
+        .back-section {
+            text-align: center;
+            padding: 4rem 5%;
         }
 
-        .back-link:hover {
-            gap: 0.8rem;
+        .back-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: transparent;
+            color: var(--pearl);
+            text-decoration: none;
+            font-family: 'Anybody', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            border: 2px solid rgba(162, 166, 128, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--accent);
+            color: var(--noir);
+            border-color: var(--accent);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(162, 166, 128, 0.3);
         }
 
         @media (max-width: 768px) {
@@ -195,8 +219,8 @@
 
     <!-- Hero Section -->
     <section class="portfolio-hero">
-        <a href="index.html#work" class="back-link">← Back to Portfolio</a>
-        <h1><span class="accent-word">Audio</span> Production</h1>
+        <div class="section-label">Audio Production</div>
+        <h1><span class="accent-word">Audio/Music</span> Production</h1>
         <p>Live mixing, studio productions, sound design, musician — engineering pristine soundscapes from stage to studio.</p>
     </section>
 
@@ -255,6 +279,11 @@
                 <p>Drummer</p>
             </div>
         </a>
+    </div>
+
+    <div class="back-section">
+        <a href="index.html" class="back-button">Back to Home</a>
+    </div>
 
     <!-- Footer -->
     <footer>

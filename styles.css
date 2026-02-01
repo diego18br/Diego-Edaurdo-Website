@@ -561,6 +561,31 @@ section {
     box-shadow: 0 20px 60px rgba(162, 166, 128, 0.3);
 }
 
+.category-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    transition: transform 0.4s ease;
+}
+
+.work-category:hover .category-image {
+    transform: scale(1.1);
+}
+
+.category-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(26, 26, 26, 0.3) 0%, rgba(10, 10, 10, 0.9) 100%);
+    z-index: 1;
+}
+
 .category-content {
     position: absolute;
     bottom: 0;

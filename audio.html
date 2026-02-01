@@ -8,231 +8,264 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Anybody:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <style>
-        :root {
-            --noir: #0a0a0a;
-            --ash: #1a1a1a;
-            --silver: #e8e8e8;
-            --pearl: #f5f5f5;
-            --accent: #a2a680;
-            --accent-dim: #8a8e6a;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Crimson Pro', serif;
-            background: var(--noir);
-            color: var(--silver);
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            position: relative;
-            margin: 0;
-        }
-
-        /* Floating shapes background */
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .neural-canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            opacity: 0.6;
-        }
-
-        .float-shape {
-            position: absolute;
-            border: 2px solid rgba(162, 166, 128, 0.362);
-            animation: float 20s infinite ease-in-out;
-        }
-
-        .float-shape:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            top: 10%;
-            left: 10%;
-            animation-delay: 0s;
-        }
-
-        .float-shape:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            top: 60%;
-            right: 15%;
-            animation-delay: 3s;
-            transform: rotate(45deg);
-        }
-
-        .float-shape:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            bottom: 20%;
-            left: 20%;
-            animation-delay: 6s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            25% { transform: translateY(-30px) rotate(5deg); }
-            50% { transform: translateY(-60px) rotate(-5deg); }
-            75% { transform: translateY(-30px) rotate(3deg); }
-        }
-
-        .container {
+        .portfolio-hero {
+            padding: 180px 5% 80px;
             text-align: center;
-            width: 100%;
-            max-width: 800px;
-            padding: 3rem;
-            position: relative;
-            z-index: 2;
         }
 
-        .logo {
-            height: 60px;
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.2s forwards;
-        }
-
-        @keyframes fadeInUp {
-            from { 
-                opacity: 0; 
-                transform: translateY(30px);
-            }
-            to { 
-                opacity: 1; 
-                transform: translateY(0);
-            }
-        }
-
-        h1 {
+        .portfolio-hero h1 {
             font-family: 'Anybody', sans-serif;
             font-size: clamp(3rem, 8vw, 5rem);
             font-weight: 900;
             letter-spacing: -0.03em;
             color: var(--pearl);
             margin-bottom: 1.5rem;
-            line-height: 1.1;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.4s forwards;
         }
 
-        .accent-word {
+        .portfolio-hero .accent-word {
             color: var(--accent);
             font-style: italic;
         }
 
-        p {
-            font-size: 1.4rem;
+        .portfolio-hero p {
+            font-size: 1.3rem;
             color: var(--silver);
-            margin-bottom: 3rem;
+            max-width: 600px;
+            margin: 0 auto;
             line-height: 1.8;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.6s forwards;
         }
 
-        .status-badge {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: rgba(162, 166, 128, 0.1);
-            border: 1px solid rgba(162, 166, 128, 0.3);
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 0.05em;
-            color: var(--accent);
-            margin-bottom: 3rem;
-            opacity: 0;
-            animation: fadeInUp 0.8s ease-out 0.8s forwards;
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            padding: 0 5% 100px;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .back-button {
-            display: inline-block;
-            padding: 1.2rem 3rem;
-            background: var(--accent);
-            color: var(--noir);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 700;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            border-radius: 50px;
+        .portfolio-item {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--ash);
+            border: 1px solid rgba(162, 166, 128, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .portfolio-item iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-item .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(162, 166, 128, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .video-item .play-button::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid var(--noir);
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 5px;
+        }
+
+        .video-item:hover .play-button {
+            transform: translate(-50%, -50%) scale(1.1);
+            background: var(--accent);
+        }
+
+        .portfolio-item .item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem 1.5rem 1.5rem;
+            background: linear-gradient(to top, rgba(10, 10, 10, 0.95), transparent);
             opacity: 0;
-            animation: fadeInUp 0.8s ease-out 1s forwards;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-item.video-item .item-overlay {
+            opacity: 1;
+            padding: 1rem 1.5rem;
+        }
+
+        .item-overlay h3 {
             font-family: 'Anybody', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--pearl);
+            margin-bottom: 0.3rem;
         }
 
-        .back-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(162, 166, 128, 0.4);
+        .item-overlay p {
+            font-size: 0.9rem;
+            color: var(--silver);
+            opacity: 0.8;
         }
 
-        /* Responsive */
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            transition: gap 0.3s ease;
+        }
+
+        .back-link:hover {
+            gap: 0.8rem;
+        }
+
         @media (max-width: 768px) {
-            .container {
-                padding: 2rem;
+            .portfolio-grid {
+                grid-template-columns: 1fr;
             }
 
-            .logo {
-                height: 50px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            p {
-                font-size: 1.2rem;
+            .portfolio-hero {
+                padding: 140px 5% 60px;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav>
+        <a href="https://www.diegoheduardo.com" class="logo">
+            <img src="img/Diego Eduardo White.png" alt="Diego Eduardo">
+        </a>
+        <div class="nav-profile">
+            <img src="img/diego-profile.jpg" alt="Diego Eduardo">
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html#expertise">Expertise</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#work">Portfolio</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
     <div class="floating-elements">
         <div class="float-shape"></div>
         <div class="float-shape"></div>
         <div class="float-shape"></div>
     </div>
 
-    <div class="container">
-        <a href="index.html"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo" class="logo"></a>
-        
-        <h1>
-            <span class="accent-word">Audio Production</span> Portfolio
-        </h1>
-        
-        <p>
-            Discover my live mixing projects, studio productions, and sound design work. This portfolio showcase is currently being crafted.
-        </p>
-        
-        <div class="status-badge">🎧 Coming Soon</div>
-        
-        <a href="index.html" class="back-button">Back to Home</a>
-    </div>
+    <!-- Hero Section -->
+    <section class="portfolio-hero">
+        <a href="index.html#work" class="back-link">← Back to Portfolio</a>
+        <h1><span class="accent-word">Audio</span> Production</h1>
+        <p>Live mixing, studio productions, sound design, musician — engineering pristine soundscapes from stage to studio.</p>
+    </section>
 
-    <script src="portfolio-neural.js"></script>
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid">
+        <!-- Photo Item Example -->
+        <div class="portfolio-item">
+            <img src="img/Me-and-Brady.JPG" alt="Acoustic Gig" style="object-position: center 30%;">
+            <div class="item-overlay">
+                <h3>Live Mixing Session</h3>
+                <p>FOH Engineering</p>
+            </div>
+        </div>
+
+        <!-- YouTube Video Item -->
+        <a href="https://www.youtube.com/watch?v=FYy1WLW6jfg" target="_blank" class="portfolio-item video-item">
+            <img src="https://img.youtube.com/vi/FYy1WLW6jfg/maxresdefault.jpg" alt="Love On Top Drumming">
+            <div class="play-button"></div>
+            <div class="item-overlay">
+                <h3>Love On Top | G-Sisters</h3>
+                <p>Drummer</p>
+            </div>
+        </a>
+
+        <!-- Add more items as needed -->
+        <div class="portfolio-item">
+            <img src="img/guitarist" alt="Live Performance" style="object-position: center 30%;">
+            <div class="item-overlay">
+                <h3>Live Performance</h3>
+                <p>Guitarist</p>
+            </div>
+        </div>
+
+        <a href="https://www.youtube.com/watch?v=hLNOVYgLylg" target="_blank" class="portfolio-item video-item">
+            <img src="https://img.youtube.com/vi/hLNOVYgLylg/maxresdefault.jpg" alt="Guitarist and Audio Production">
+            <div class="play-button"></div>
+            <div class="item-overlay">
+                <h3>Christmas Recording</h3>
+                <p>Guitarist and Audio Production</p>
+            </div>
+        </a>
+
+        <div class="portfolio-item">
+            <img src="img/drumming.jpg" alt="Drumming Outdoor" style="object-position: center 80%;">
+            <div class="item-overlay">
+                <h3>Outdoor Recording</h3>
+                <p>Drummer</p>
+            </div>
+        </div>
+
+         <a href="https://youtu.be/XObp7ssrb0Q?si=cKaC3rMJfebgaAlW" target="_blank" class="portfolio-item video-item">
+            <img src="https://img.youtube.com/vi/XObp7ssrb0Q/hqdefault.jpg" alt="Drummer">
+            <div class="play-button"></div>
+            <div class="item-overlay">
+                <h3>Winter Wonderland | G-Sisters</h3>
+                <p>Drummer</p>
+            </div>
+        </a>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="https://www.diegoheduardo.com"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo"></a>
+            </div>
+            <div class="footer-text">© 2026 Diego Eduardo. Creative Technologist.</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>

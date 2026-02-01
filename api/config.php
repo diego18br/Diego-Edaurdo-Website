@@ -40,6 +40,20 @@ define('SITE_URL', 'https://www.diegoheduardo.com');
 define('SESSION_TIMEOUT', 3600); // Session timeout in seconds (1 hour)
 
 // ============================================
+// WEBSITE DASHBOARD CONFIGURATION
+// ============================================
+
+// UptimeRobot API Key - Get from: uptimerobot.com -> My Settings -> API Settings
+define('UPTIMEROBOT_API_KEY', 'u3291274-870f379b9dc406540a06ac8a');
+
+// Cache durations in seconds
+define('METRICS_CACHE_DURATION_UPTIME', 300);       // 5 minutes
+define('METRICS_CACHE_DURATION_PERFORMANCE', 3600); // 1 hour
+
+// Rate limiting - max refreshes per hour per website
+define('REFRESH_RATE_LIMIT', 5);
+
+// ============================================
 // DATABASE CONNECTION
 // ============================================
 

@@ -19,7 +19,7 @@ revealOnScroll(); // Initial check
 
 // Tablet scroll behavior - collapse nav on scroll
 const handleTabletScroll = () => {
-    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1100;
+    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1500;
     const navProfile = document.querySelector('.nav-profile');
     const body = document.body;
 

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Dashboard — Diego Eduardo</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Anybody:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="portal.css">
+    <link rel="stylesheet" href="dashboard.css">
+    <meta name="description" content="Diego Eduardo client dashboard - monitor your website's uptime, performance, and analytics.">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Navigation -->
+    <nav>
+        <a href="https://www.diegoheduardo.com" class="logo">
+            <img src="img/Diego Eduardo White.png" alt="Diego Eduardo">
+        </a>
+        <div class="nav-profile">
+            <img src="img/diego-profile.jpg" alt="Diego Eduardo">
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="portal.html">Portal</a></li>
+            <li><a href="index.html#expertise">Expertise</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+    <!-- Dashboard Section -->
+    <section class="portal-section">
+        <div class="portal-container dashboard-container">
+            <!-- Loading State -->
+            <div id="dashboard-loading" class="portal-loading">
+                <div class="loading-spinner"></div>
+                <p>Loading your dashboard...</p>
+            </div>
+
+            <!-- Dashboard Content (hidden until loaded) -->
+            <div id="dashboard-content" class="portal-content" style="display: none;">
+                <div class="portal-header dashboard-header">
+                    <div class="header-top">
+                        <div>
+                            <div class="section-label">Website Dashboard</div>
+                            <h1 class="portal-title">Your Websites</h1>
+                        </div>
+                        <button id="refresh-all-btn" class="refresh-all-button" title="Refresh all metrics">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 4v6h-6"></path>
+                                <path d="M1 20v-6h6"></path>
+                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                            </svg>
+                            <span>Refresh All</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Websites Grid -->
+                <div id="websites-grid" class="websites-grid">
+                    <!-- Website cards will be populated by JavaScript -->
+                </div>
+
+                <!-- No Websites Message -->
+                <div id="no-websites" class="no-websites" style="display: none;">
+                    <div class="empty-state">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <h3>No Websites Yet</h3>
+                        <p>No websites have been assigned to your account yet.</p>
+                        <p>Contact support if you believe this is an error.</p>
+                        <a href="mailto:diego@diegoheduardo.com" class="cta-button portal-button secondary">Contact Support</a>
+                    </div>
+                </div>
+
+                <div class="portal-footer dashboard-footer">
+                    <a href="portal.html" class="back-link">← Back to Portal</a>
+                    <button id="logout-btn" class="logout-button">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="https://www.diegoheduardo.com"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo"></a>
+            </div>
+            <div class="footer-text">© 2026 Diego Eduardo. Creative Technologist.</div>
+        </div>
+    </footer>
+
+    <script src="portal.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -17,6 +17,48 @@ const revealOnScroll = () => {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll(); // Initial check
 
+// Mobile hamburger menu toggle
+document.addEventListener('DOMContentLoaded', () => {
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('nav-links');
+
+    if (hamburger && navLinks) {
+        // Toggle neural canvas visibility
+        const toggleNeuralCanvas = (show) => {
+            const neuralCanvas = document.querySelector('.neural-canvas');
+            if (neuralCanvas) {
+                neuralCanvas.style.opacity = show ? '0.1' : '0.6';
+                neuralCanvas.style.transition = 'opacity 0.3s ease';
+            }
+        };
+
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            hamburger.classList.toggle('active');
+            navLinks.classList.toggle('active');
+            toggleNeuralCanvas(navLinks.classList.contains('active'));
+        });
+
+        // Close menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                toggleNeuralCanvas(false);
+            });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!hamburger.contains(e.target) && !navLinks.contains(e.target)) {
+                hamburger.classList.remove('active');
+                navLinks.classList.remove('active');
+                toggleNeuralCanvas(false);
+            }
+        });
+    }
+});
+
 // Smooth scrolling for navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -153,7 +195,9 @@ function showPopup(title, message, type) {
 }
 
 // Interactive Neural Network Mouse Follower
-const createNeuralNetwork = () => {
+// Only define if not already defined (portfolio-neural.js may have it)
+if (typeof createNeuralNetwork === 'undefined') {
+var createNeuralNetwork = () => {
     // Create canvas for neural connections
     const canvas = document.createElement('canvas');
     canvas.classList.add('neural-canvas');
@@ -296,6 +340,9 @@ const createNeuralNetwork = () => {
     
     animate();
 };
+}
 
-// Initialize neural network
-createNeuralNetwork();
+// Initialize neural network only if canvas doesn't exist yet
+if (!document.querySelector('.neural-canvas')) {
+    createNeuralNetwork();
+}

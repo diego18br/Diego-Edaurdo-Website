@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Portal — Diego Eduardo</title>
+    <link rel="icon" type="image/png" href="img/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Anybody:wght@300;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="portal.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="https://www.diegoheduardo.com" class="logo">
+            <img src="img/Diego Eduardo White.png" alt="Diego Eduardo">
+        </a>
+        <div class="nav-profile">
+            <img src="img/diego-profile.jpg" alt="Diego Eduardo">
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-links" id="nav-links">
+            <li><a href="index.html#expertise">Expertise</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#work">Portfolio</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Portal Section -->
+    <section class="portal-section">
+        <div class="portal-container">
+            <!-- Loading State -->
+            <div id="portal-loading" class="portal-loading">
+                <div class="loading-spinner"></div>
+                <p>Loading your portal...</p>
+            </div>
+
+            <!-- Portal Content (hidden until loaded) -->
+            <div id="portal-content" class="portal-content" style="display: none;">
+                <div class="portal-header">
+                    <div class="section-label">Client Portal</div>
+                    <h1 class="portal-title">Welcome, <span id="client-name">Client</span></h1>
+                    <p class="portal-subtitle">Manage your invoices and payment information</p>
+                </div>
+
+                <div class="portal-cards">
+                    <div class="portal-card">
+                        <div class="card-icon">💳</div>
+                        <h3>View & Pay Invoices</h3>
+                        <p>Access your invoices, make payments, and update your payment methods through our secure payment portal.</p>
+                        <button id="billing-btn" class="cta-button portal-button">
+                            <span class="button-text">Manage Billing</span>
+                            <span class="button-loader" style="display: none;"></span>
+                        </button>
+                    </div>
+
+                    <div class="portal-card">
+                        <div class="card-icon">📧</div>
+                        <h3>Need Help?</h3>
+                        <p>Have questions about an invoice or need assistance with your account? Get in touch with me directly.</p>
+                        <a href="mailto:diego@diegoheduardo.com" class="cta-button portal-button secondary">Contact Support</a>
+                    </div>
+                </div>
+
+                <div class="portal-footer">
+                    <button id="logout-btn" class="logout-button">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <a href="https://www.diegoheduardo.com"><img src="img/Diego Eduardo White.png" alt="Diego Eduardo"></a>
+            </div>
+            <div class="footer-text">© 2026 Diego Eduardo. Creative Technologist.</div>
+        </div>
+    </footer>
+
+    <script src="portal.js"></script>
+    <script>
+        // Check authentication on page load
+        document.addEventListener('DOMContentLoaded', async function() {
+            const loadingDiv = document.getElementById('portal-loading');
+            const contentDiv = document.getElementById('portal-content');
+
+            try {
+                const response = await fetch('api/session-check.php', {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.client) {
+                    // User is logged in - show portal
+                    document.getElementById('client-name').textContent = data.client.name.split(' ')[0];
+                    loadingDiv.style.display = 'none';
+                    contentDiv.style.display = 'block';
+                } else {
+                    // Not logged in - redirect to login
+                    window.location.href = 'login.html';
+                }
+            } catch (error) {
+                window.location.href = 'login.html';
+            }
+        });
+
+        // Handle billing button click
+        document.getElementById('billing-btn').addEventListener('click', async function() {
+            const button = this;
+            const buttonText = button.querySelector('.button-text');
+            const buttonLoader = button.querySelector('.button-loader');
+
+            // Show loading state
+            buttonText.textContent = 'Opening portal...';
+            buttonLoader.style.display = 'inline-block';
+            button.disabled = true;
+
+            try {
+                const response = await fetch('api/create-portal.php', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+
+                const data = await response.json();
+
+                if (data.success && data.url) {
+                    // Redirect to Stripe Customer Portal
+                    window.location.href = data.url;
+                } else {
+                    alert(data.error || 'Unable to open billing portal. Please try again.');
+                    buttonText.textContent = 'Manage Billing';
+                    buttonLoader.style.display = 'none';
+                    button.disabled = false;
+                }
+            } catch (error) {
+                alert('Unable to connect. Please try again.');
+                buttonText.textContent = 'Manage Billing';
+                buttonLoader.style.display = 'none';
+                button.disabled = false;
+            }
+        });
+
+        // Handle logout button click
+        document.getElementById('logout-btn').addEventListener('click', async function() {
+            try {
+                await fetch('api/logout.php', {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+            } catch (error) {
+                // Logout anyway
+            }
+            window.location.href = 'login.html';
+        });
+    </script>
+</body>
+</html>

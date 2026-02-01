@@ -32,7 +32,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000;
+    z-index: 10001;
     background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
     backdrop-filter: blur(10px);
     animation: slideDown 0.8s ease-out;
@@ -120,6 +120,23 @@ nav {
 
 .nav-links a:hover::after {
     width: 100%;
+}
+
+.nav-links a.nav-login {
+    padding: 0.5rem 1.2rem;
+    border: 1px solid var(--accent);
+    border-radius: 50px;
+    color: var(--accent);
+    transition: all 0.3s ease;
+}
+
+.nav-links a.nav-login::after {
+    display: none;
+}
+
+.nav-links a.nav-login:hover {
+    background: var(--accent);
+    color: var(--noir);
 }
 
 /* Hero Section */
@@ -899,6 +916,41 @@ footer {
     font-size: 0.9rem;
 }
 
+/* Hamburger Menu */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: var(--silver);
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     body {
@@ -908,13 +960,25 @@ footer {
     nav {
         padding: 1rem 2rem;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
+        align-items: center;
         gap: 0;
-        position: relative;
+        position: fixed;
+        flex-wrap: wrap;
+        z-index: 10001;
     }
 
     .logo {
         display: none;
+    }
+
+    .hamburger {
+        display: flex;
+        position: absolute;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10003;
     }
 
     .nav-profile {
@@ -925,6 +989,45 @@ footer {
 
     .nav-links {
         display: none;
+        flex-direction: column;
+        width: 100%;
+        background: var(--ash);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(162, 166, 128, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 10002;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links.active ~ .neural-canvas,
+    body:has(.nav-links.active) .neural-canvas {
+        opacity: 0.1 !important;
+        transition: opacity 0.3s ease;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-links a {
+        display: block;
+        padding: 1rem 2rem;
+    }
+
+    .nav-links a::after {
+        display: none;
+    }
+
+    .nav-links a.nav-login {
+        margin: 1rem 2rem;
+        display: inline-block;
     }
 
     .hero {

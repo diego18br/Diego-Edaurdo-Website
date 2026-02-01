@@ -65,8 +65,8 @@ nav {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    width: 55px;
-    height: 55px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     overflow: hidden;
     border: 2px solid var(--accent);
@@ -543,7 +543,7 @@ section {
 
 .work-categories {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
     max-width: 1400px;
     margin: 0 auto;
@@ -890,6 +890,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 }
 
 .footer-logo {
@@ -920,6 +921,10 @@ footer {
     display: flex;
     gap: 1.5rem;
     align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .footer-social a {
@@ -979,6 +984,63 @@ footer {
 }
 
 /* Responsive Design */
+
+/* Tablet - position nav profile below navbar */
+@media (max-width: 1100px) {
+    .nav-profile {
+        position: fixed;
+        top: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10000;
+        transition: all 0.3s ease;
+    }
+
+    /* When scrolled on tablet, switch to mobile-style nav */
+    .tablet-scrolled .nav-profile {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .tablet-scrolled .hamburger {
+        display: flex;
+        position: absolute;
+        right: 2rem;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10003;
+    }
+
+    .tablet-scrolled .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: var(--ash);
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding: 1rem 0;
+        border-top: 1px solid rgba(162, 166, 128, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 10002;
+    }
+
+    .tablet-scrolled .nav-links.active {
+        display: flex;
+    }
+
+    .tablet-scrolled .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .tablet-scrolled .nav-links a {
+        display: block;
+        padding: 1rem 2rem;
+    }
+}
+
 @media (max-width: 768px) {
     body {
         padding-top: 100px !important;
@@ -1012,6 +1074,8 @@ footer {
         position: static;
         transform: none;
         margin: 0 auto;
+        width: 55px;
+        height: 55px;
     }
 
     .nav-links {
@@ -1085,6 +1149,15 @@ footer {
         align-items: center;
         gap: 1rem;
         text-align: center;
+    }
+
+    .footer-social {
+        position: static;
+        transform: none;
+    }
+
+    .work-categories {
+        grid-template-columns: 1fr;
     }
 }
 

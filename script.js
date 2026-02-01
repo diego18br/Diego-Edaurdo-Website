@@ -17,6 +17,27 @@ const revealOnScroll = () => {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll(); // Initial check
 
+// Tablet scroll behavior - collapse nav on scroll
+const handleTabletScroll = () => {
+    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1100;
+    const navProfile = document.querySelector('.nav-profile');
+    const body = document.body;
+
+    if (isTablet && navProfile) {
+        if (window.scrollY > 50) {
+            body.classList.add('tablet-scrolled');
+        } else {
+            body.classList.remove('tablet-scrolled');
+        }
+    } else {
+        body.classList.remove('tablet-scrolled');
+    }
+};
+
+window.addEventListener('scroll', handleTabletScroll);
+window.addEventListener('resize', handleTabletScroll);
+handleTabletScroll(); // Initial check
+
 // Mobile hamburger menu toggle
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');

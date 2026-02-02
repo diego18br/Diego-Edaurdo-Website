@@ -54,6 +54,31 @@ define('METRICS_CACHE_DURATION_PERFORMANCE', 3600); // 1 hour
 define('REFRESH_RATE_LIMIT', 5);
 
 // ============================================
+// PASSWORD RESET CONFIGURATION
+// ============================================
+
+define('PASSWORD_RESET_EXPIRY', 3600); // Token expires in 1 hour
+define('FROM_EMAIL', 'noreply@diegoheduardo.com');
+define('FROM_NAME', 'Diego Eduardo');
+
+// ============================================
+// CONTACT FORM CONFIGURATION
+// ============================================
+
+define('CONTACT_NOTIFICATION_EMAIL', 'diego@diegoheduardo.com');
+define('CONTACT_RATE_LIMIT', 5); // Max submissions per IP per hour
+
+// ============================================
+// SMTP EMAIL CONFIGURATION
+// ============================================
+
+define('SMTP_HOST', 'smtp.hostinger.com');
+define('SMTP_PORT', 465);
+define('SMTP_SECURE', 'ssl'); // 'ssl' for port 465, 'tls' for port 587
+define('SMTP_USERNAME', 'diego@diegoheduardo.com');
+define('SMTP_PASSWORD', '!D12031994e');
+
+// ============================================
 // DATABASE CONNECTION
 // ============================================
 

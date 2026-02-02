@@ -21,9 +21,9 @@
         <a href="https://www.diegoheduardo.com" class="logo">
             <img src="img/Diego Eduardo White.png" alt="Diego Eduardo">
         </a>
-        <div class="nav-profile">
+        <a href="https://www.diegoheduardo.com" class="nav-profile">
             <img src="img/diego-profile.jpg" alt="Diego Eduardo">
-        </div>
+        </a>
         <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
             <span></span>
             <span></span>
@@ -53,35 +53,275 @@
                     <div class="header-top">
                         <div>
                             <div class="section-label">Website Dashboard</div>
-                            <h1 class="portal-title">Your Websites</h1>
+                            <h1 class="portal-title" id="website-title">Your Websites</h1>
                         </div>
-                        <button id="refresh-all-btn" class="refresh-all-button" title="Refresh all metrics">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M23 4v6h-6"></path>
-                                <path d="M1 20v-6h6"></path>
-                                <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                        <div class="header-actions">
+                            <select id="website-selector" class="website-selector">
+                                <!-- Populated by JavaScript -->
+                            </select>
+                            <button id="refresh-all-btn" class="refresh-all-button" title="Refresh data">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M23 4v6h-6"></path>
+                                    <path d="M1 20v-6h6"></path>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                                </svg>
+                                <span>Refresh</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Tabs -->
+                    <div class="dashboard-tabs">
+                        <button class="tab-btn active" data-tab="monitoring">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
                             </svg>
-                            <span>Refresh All</span>
+                            Monitoring
+                        </button>
+                        <button class="tab-btn" data-tab="analytics">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 20V10M12 20V4M6 20v-6"></path>
+                            </svg>
+                            Analytics
+                        </button>
+                        <button class="tab-btn" data-tab="seo">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="M21 21l-4.35-4.35"></path>
+                            </svg>
+                            SEO Health
                         </button>
                     </div>
                 </div>
 
-                <!-- Websites Grid -->
-                <div id="websites-grid" class="websites-grid">
-                    <!-- Website cards will be populated by JavaScript -->
+                <!-- Tab Content: Monitoring -->
+                <div id="monitoring-tab" class="tab-content active">
+                    <div id="websites-grid" class="websites-grid">
+                        <!-- Monitoring cards will be populated by JavaScript -->
+                    </div>
+                    <div id="no-websites" class="no-websites" style="display: none;">
+                        <div class="empty-state">
+                            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <h3>No Websites Yet</h3>
+                            <p>No websites have been assigned to your account yet.</p>
+                            <p>Contact support if you believe this is an error.</p>
+                            <a href="mailto:diego@diegoheduardo.com" class="cta-button portal-button secondary">Contact Support</a>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- No Websites Message -->
-                <div id="no-websites" class="no-websites" style="display: none;">
-                    <div class="empty-state">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
-                        <h3>No Websites Yet</h3>
-                        <p>No websites have been assigned to your account yet.</p>
-                        <p>Contact support if you believe this is an error.</p>
-                        <a href="mailto:diego@diegoheduardo.com" class="cta-button portal-button secondary">Contact Support</a>
+                <!-- Tab Content: Analytics -->
+                <div id="analytics-tab" class="tab-content">
+                    <!-- Analytics Loading -->
+                    <div id="analytics-loading" class="tab-loading" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <p>Loading analytics...</p>
+                    </div>
+
+                    <!-- Analytics Content -->
+                    <div id="analytics-content">
+                        <!-- Period Selector -->
+                        <div class="analytics-controls">
+                            <select id="period-selector" class="period-selector">
+                                <option value="24h">Last 24 Hours</option>
+                                <option value="7d" selected>Last 7 Days</option>
+                                <option value="30d">Last 30 Days</option>
+                                <option value="90d">Last 90 Days</option>
+                            </select>
+                        </div>
+
+                    <!-- Tracker Install Notice -->
+                    <div id="tracker-notice" class="tracker-notice" style="display: none;">
+                        <div class="notice-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 16v-4M12 8h.01"></path>
+                            </svg>
+                        </div>
+                        <div class="notice-content">
+                            <h4>Analytics Tracker Not Detected</h4>
+                            <p>Add this code to your website to start collecting analytics:</p>
+                            <code id="tracker-code"></code>
+                        </div>
+                    </div>
+
+                    <!-- Analytics Overview -->
+                    <div class="analytics-overview">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                    <circle cx="12" cy="12" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-pageviews">-</span>
+                                <span class="stat-label">Page Views</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-visitors">-</span>
+                                <span class="stat-label">Unique Visitors</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-avg-time">-</span>
+                                <span class="stat-label">Avg. Session</span>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                                    <polyline points="16 7 22 7 22 13"></polyline>
+                                </svg>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="stat-bounce">-</span>
+                                <span class="stat-label">Bounce Rate</span>
+                            </div>
+                        </div>
+                    </div>
+
+                        <!-- Analytics Charts Grid -->
+                        <div class="analytics-grid">
+                            <!-- Traffic Timeline -->
+                            <div class="analytics-card wide">
+                                <h3>Traffic Overview</h3>
+                                <div id="timeline-chart" class="chart-container">
+                                    <div class="chart-loading">Loading chart...</div>
+                                </div>
+                            </div>
+
+                            <!-- Top Pages -->
+                            <div class="analytics-card">
+                                <h3>Top Pages</h3>
+                                <div id="top-pages-list" class="data-list">
+                                    <div class="list-loading">Loading...</div>
+                                </div>
+                            </div>
+
+                            <!-- Traffic Sources -->
+                            <div class="analytics-card">
+                                <h3>Traffic Sources</h3>
+                                <div id="traffic-sources-list" class="data-list">
+                                    <div class="list-loading">Loading...</div>
+                                </div>
+                            </div>
+
+                            <!-- Devices -->
+                            <div class="analytics-card">
+                                <h3>Devices</h3>
+                                <div id="device-breakdown" class="devices-grid">
+                                    <div class="list-loading">Loading...</div>
+                                </div>
+                            </div>
+
+                            <!-- Browsers -->
+                            <div class="analytics-card">
+                                <h3>Browsers</h3>
+                                <div id="browser-list" class="data-list">
+                                    <div class="list-loading">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Content: SEO -->
+                <div id="seo-tab" class="tab-content">
+                    <!-- SEO Loading -->
+                    <div id="seo-loading" class="tab-loading" style="display: none;">
+                        <div class="loading-spinner"></div>
+                        <p>Loading SEO data...</p>
+                    </div>
+
+                    <!-- SEO Content -->
+                    <div id="seo-content">
+                        <!-- SEO Score Overview -->
+                        <div class="seo-header">
+                            <div class="seo-score-main">
+                                <div class="score-ring">
+                                    <svg viewBox="0 0 120 120">
+                                        <circle cx="60" cy="60" r="54" fill="none" stroke="rgba(162, 166, 128, 0.2)" stroke-width="12"/>
+                                        <circle cx="60" cy="60" r="54" fill="none" stroke="var(--sage)" stroke-width="12"
+                                                stroke-dasharray="339.292" stroke-dashoffset="339.292" stroke-linecap="round"
+                                                transform="rotate(-90 60 60)" id="seo-score-ring"/>
+                                    </svg>
+                                    <div class="score-value" id="seo-score-value">-</div>
+                                </div>
+                                <div class="score-label" id="seo-score-label">Overall SEO Score</div>
+                            </div>
+                            <div class="seo-subscores">
+                                <div class="subscore" id="subscore-meta"></div>
+                                <div class="subscore" id="subscore-content"></div>
+                                <div class="subscore" id="subscore-technical"></div>
+                                <div class="subscore" id="subscore-performance"></div>
+                            </div>
+                            <button id="run-audit-btn" class="cta-button audit-button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M23 4v6h-6"></path>
+                                    <path d="M1 20v-6h6"></path>
+                                    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+                                </svg>
+                                Run New Audit
+                            </button>
+                        </div>
+
+                        <!-- SEO Issues & Recommendations -->
+                        <div class="seo-grid">
+                            <!-- Issues -->
+                            <div class="seo-card">
+                                <h3>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                    Issues Found
+                                </h3>
+                                <div id="seo-issues-list" class="issues-list">
+                                    <div class="list-loading">Loading...</div>
+                                </div>
+                            </div>
+
+                            <!-- Recommendations -->
+                            <div class="seo-card">
+                                <h3>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 11l3 3L22 4"></path>
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                    </svg>
+                                    Recommendations
+                                </h3>
+                                <div id="seo-recommendations-list" class="recommendations-list">
+                                    <div class="list-loading">Loading...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Last Audit Info -->
+                        <div class="audit-info">
+                            Last audit: <span id="last-audit-time">Never</span>
+                        </div>
                     </div>
                 </div>
 

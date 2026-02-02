@@ -67,3 +67,116 @@ CREATE TABLE IF NOT EXISTS metric_refresh_log (
     FOREIGN KEY (triggered_by) REFERENCES clients(id) ON DELETE CASCADE,
     INDEX idx_website_created (website_id, created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================
+-- Password Reset Tokens
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS password_reset_tokens (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT NOT NULL,
+    token VARCHAR(64) NOT NULL UNIQUE,
+    expires_at TIMESTAMP NOT NULL,
+    used_at TIMESTAMP NULL DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE,
+    INDEX idx_token (token),
+    INDEX idx_expires_at (expires_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================
+-- Contact Form Submissions
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS contact_submissions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    subject VARCHAR(500) NOT NULL,
+    service VARCHAR(100) NOT NULL,
+    message TEXT NOT NULL,
+    ip_address VARCHAR(45) DEFAULT NULL,
+    user_agent TEXT DEFAULT NULL,
+    is_read TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_email (email),
+    INDEX idx_service (service),
+    INDEX idx_is_read (is_read),
+    INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================
+-- Analytics Tables
+-- ============================================
+
+-- Page views tracked by the JS tracker
+CREATE TABLE IF NOT EXISTS analytics_pageviews (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    website_id INT NOT NULL,
+    session_id VARCHAR(64) NOT NULL,
+    visitor_id VARCHAR(64) NOT NULL,
+    page_url VARCHAR(2000) NOT NULL,
+    page_title VARCHAR(500) DEFAULT NULL,
+    referrer VARCHAR(2000) DEFAULT NULL,
+    referrer_domain VARCHAR(255) DEFAULT NULL,
+    utm_source VARCHAR(255) DEFAULT NULL,
+    utm_medium VARCHAR(255) DEFAULT NULL,
+    utm_campaign VARCHAR(255) DEFAULT NULL,
+    device_type ENUM('desktop', 'tablet', 'mobile') DEFAULT 'desktop',
+    browser VARCHAR(100) DEFAULT NULL,
+    os VARCHAR(100) DEFAULT NULL,
+    screen_width INT DEFAULT NULL,
+    screen_height INT DEFAULT NULL,
+    country VARCHAR(2) DEFAULT NULL,
+    ip_hash VARCHAR(64) DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (website_id) REFERENCES client_websites(id) ON DELETE CASCADE,
+    INDEX idx_website_id (website_id),
+    INDEX idx_session_id (session_id),
+    INDEX idx_visitor_id (visitor_id),
+    INDEX idx_created_at (created_at),
+    INDEX idx_page_url (page_url(255)),
+    INDEX idx_referrer_domain (referrer_domain)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Daily aggregated analytics (for faster queries)
+CREATE TABLE IF NOT EXISTS analytics_daily (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    website_id INT NOT NULL,
+    date DATE NOT NULL,
+    pageviews INT DEFAULT 0,
+    unique_visitors INT DEFAULT 0,
+    sessions INT DEFAULT 0,
+    avg_session_duration INT DEFAULT 0,
+    bounce_rate DECIMAL(5,2) DEFAULT 0,
+    top_pages JSON DEFAULT NULL,
+    top_referrers JSON DEFAULT NULL,
+    devices JSON DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (website_id) REFERENCES client_websites(id) ON DELETE CASCADE,
+    UNIQUE KEY unique_website_date (website_id, date),
+    INDEX idx_date (date)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ============================================
+-- SEO Audit Tables
+-- ============================================
+
+-- SEO audit results
+CREATE TABLE IF NOT EXISTS seo_audits (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    website_id INT NOT NULL,
+    overall_score INT DEFAULT 0,
+    meta_score INT DEFAULT 0,
+    content_score INT DEFAULT 0,
+    technical_score INT DEFAULT 0,
+    performance_score INT DEFAULT 0,
+    audit_data JSON NOT NULL,
+    issues JSON DEFAULT NULL,
+    recommendations JSON DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (website_id) REFERENCES client_websites(id) ON DELETE CASCADE,
+    INDEX idx_website_id (website_id),
+    INDEX idx_created_at (created_at)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

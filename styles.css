@@ -985,71 +985,12 @@ footer {
 
 /* Responsive Design */
 
-/* Tablet - position nav profile below navbar */
+/* Under 1500px - Always show burger menu */
 @media (max-width: 1500px) {
-    .nav-profile {
-        position: fixed;
-        top: 80px;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10000;
-        transition: all 0.3s ease;
-    }
-
-    /* When scrolled on tablet, switch to mobile-style nav */
-    .tablet-scrolled .nav-profile {
-        position: absolute;
-        top: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    .tablet-scrolled .hamburger {
-        display: flex;
-        position: absolute;
-        right: 2rem;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 10003;
-    }
-
-    .tablet-scrolled .nav-links {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-        background: var(--ash);
-        position: absolute;
-        top: 100%;
-        left: 0;
-        padding: 1rem 0;
-        border-top: 1px solid rgba(162, 166, 128, 0.2);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-        z-index: 10002;
-    }
-
-    .tablet-scrolled .nav-links.active {
-        display: flex;
-    }
-
-    .tablet-scrolled .nav-links li {
-        width: 100%;
-        text-align: center;
-    }
-
-    .tablet-scrolled .nav-links a {
-        display: block;
-        padding: 1rem 2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    body {
-        padding-top: 100px !important;
-    }
-
     nav {
         padding: 1rem 2rem;
         flex-direction: row;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         gap: 0;
         position: fixed;
@@ -1074,8 +1015,6 @@ footer {
         position: static;
         transform: none;
         margin: 0 auto;
-        width: 55px;
-        height: 55px;
     }
 
     .nav-links {
@@ -1119,6 +1058,17 @@ footer {
     .nav-links a.nav-login {
         margin: 1rem 2rem;
         display: inline-block;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 100px !important;
+    }
+
+    .nav-profile {
+        width: 55px;
+        height: 55px;
     }
 
     .hero {

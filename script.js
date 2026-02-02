@@ -17,28 +17,7 @@ const revealOnScroll = () => {
 window.addEventListener('scroll', revealOnScroll);
 revealOnScroll(); // Initial check
 
-// Tablet scroll behavior - collapse nav on scroll
-const handleTabletScroll = () => {
-    const isTablet = window.innerWidth > 768 && window.innerWidth <= 1500;
-    const navProfile = document.querySelector('.nav-profile');
-    const body = document.body;
-
-    if (isTablet && navProfile) {
-        if (window.scrollY > 50) {
-            body.classList.add('tablet-scrolled');
-        } else {
-            body.classList.remove('tablet-scrolled');
-        }
-    } else {
-        body.classList.remove('tablet-scrolled');
-    }
-};
-
-window.addEventListener('scroll', handleTabletScroll);
-window.addEventListener('resize', handleTabletScroll);
-handleTabletScroll(); // Initial check
-
-// Mobile hamburger menu toggle
+// Hamburger menu toggle
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.getElementById('hamburger');
     const navLinks = document.getElementById('nav-links');
@@ -98,36 +77,32 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Contact form submission with FormSpree
+// Contact form submission
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.querySelector('.contact-form');
-    
+
     if (contactForm) {
         const button = contactForm.querySelector('.cta-button');
         const originalButtonText = button.textContent;
-        
-        // FormSpree form ID
-        const formspreeURL = 'https://formspree.io/f/xlggnvwj';
-        
+
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             // Show loading state
             button.textContent = 'Sending...';
             button.disabled = true;
-            
+
             // Get form values
             const data = {
                 name: document.getElementById('name').value,
                 email: document.getElementById('email').value,
                 subject: document.getElementById('subject').value,
                 service: document.getElementById('service').value,
-                message: document.getElementById('message').value,
-                _subject: document.getElementById('subject').value
+                message: document.getElementById('message').value
             };
-            
+
             try {
-                const response = await fetch(formspreeURL, {
+                const response = await fetch('api/contact.php', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
@@ -135,15 +110,15 @@ document.addEventListener('DOMContentLoaded', function() {
                         'Content-Type': 'application/json'
                     }
                 });
-                
+
                 const result = await response.json();
-                
+
                 // Reset button
                 button.textContent = originalButtonText;
                 button.disabled = false;
-                
-                if (response.ok) {
-                    showPopup('Success!', 'Thank you for your message! I\'ll get back to you soon.', 'success');
+
+                if (result.success) {
+                    showPopup('Success!', result.message, 'success');
                     contactForm.reset();
                 } else {
                     showPopup('Error', result.error || 'There was a problem sending your message.', 'error');
@@ -152,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Reset button
                 button.textContent = originalButtonText;
                 button.disabled = false;
-                
+
                 showPopup('Error', 'Network error. Please check your connection and try again.', 'error');
             }
         });

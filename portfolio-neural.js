@@ -1,5 +1,5 @@
 // Interactive Neural Network Mouse Follower for Portfolio Pages
-const createNeuralNetwork = () => {
+const createPortfolioNeuralNetwork = () => {
     // Find the floating-elements container instead of appending to body
     const floatingContainer = document.querySelector('.floating-elements');
     
@@ -152,4 +152,4 @@ const createNeuralNetwork = () => {
 };
 
 // Initialize neural network
-createNeuralNetwork();
+createPortfolioNeuralNetwork();
